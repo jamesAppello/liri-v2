@@ -43,7 +43,7 @@ inquirer.prompt({
                         }).catch(err => {
                             if (err) throw err;
                         }).finally(statement => {
-                            statement = "Isn't it cool how regardless of whatever number you pick\nyou will ALWAYS get then (10) as your final answer?";
+                            statement = "Isn't it cool how regardless of whatever number you pick\nyou will ALWAYS get then (10) as your final answer?!\n*UNLESS YOU PICK SOME ASTRONOMICAL INTEGER THEN YOU WILL RETURN A ZERO (0).*";
                             console.log(statement);
                             setTimeout(() => {
                                 console.log('----------\nthanks for playing!')
