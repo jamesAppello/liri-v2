@@ -1,5 +1,5 @@
 const inquirer = require('inquirer'), 
-    efEs = require('fs');
+    fs = require('fs');
 
 
 inquirer.prompt({
@@ -10,7 +10,7 @@ inquirer.prompt({
         "Entertain me.",
         "Aptitude_Select",
         "CRUDabilities",
-        "Trying to get some work done."
+        "MOOD_SCALE"
     ]
 }).then(res => {
     switch (res.welcome) {
@@ -115,26 +115,64 @@ inquirer.prompt({
                 let feat = selected.crud;
                 switch(feat) {
                     case "CREATE_FILE":
-                        console.log('create');
+                        inquirer.prompt({
+                            name: 'create',
+                            message: "What do you want to say?"
+                        }).then(res => {
+                            let data = res.create;
+                            fs.writeFile("liriLog.txt", data, () => console.log('file created!'));
+                        }).catch(err => {
+                            if (err) throw err;
+                        });
                         break;
                     case "READ_FILE":
-                        console.log('read');
+                        fs.readFile('liriLog.txt', 'UTF-8', (err, fileData) => {
+                            if (err) throw new Error('*|*> there was an issue attempting to read file <*|*');
+                            console.log(fileData);
+                        });
                         break;
                     case "UPDATE_FILE":
-                        console.log('update');
+
+                        inquirer.prompt({
+                            name: 'addtofile',
+                            message: "What else do you want to say?"
+                        }).then(res => {
+                            let data = res.addtofile;
+                            fs.appendFile('liriLog.txt', ("\n"+data), (err) => {
+                                if (err) throw new Error('*|*> there was an issue appending to the file <*|*')
+                            });
+                        }).catch(err => {
+                            if (err) throw err;
+                        })
                         break;
                     case "DELETE_FILE":
                         console.log('delete');
+                        fs.unlink('liriLog.txt', () => console.log('file removed!'))
                         break;            
                 }
             }).catch(err => {
                 if (err) throw err;
             });
             break;        
-        case 'Trying to get some work done.':
-            console.log('It is better to come to ammends by working through the problem instead of ignoring it.'); 
-            // ASK USER WHAT THEY ARE WORKING ON && ASK IF THAT'S THE ONLY THING OR THERE ARE OTHERS 
-            //-- AND IF THERE IS MORE THAN ONE::ask on a LIKERT_SCALE to guage user-focus
+        case 'MOOD_SCALE':
+            inquirer.prompt({
+                name: 'outoften',
+                message: "On a scale of 1-10 (1: worst | 10: best) how would you describe your current mood?",
+                type: 'list',
+                choices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            }).then(res => {
+                let mood_scale = res.outoften;
+                if (mood_scale <= 3) {
+                    console.log('----------------------\nIt is better to be pissed off than pissed on, lol.'); 
+                    setTimeout(() => {
+                        console.log("Keep your head up! Dwelling only makes things worse!\nYou'll be ok, because I have faith in you that you have the strength & will to do so\n----------------------")
+                    }, 1221);
+                } else if(mood_scale >= 7) {
+                    console.log("WOOOOOPTIIIEEEE DOOOOOOOO!!!!");
+                } else {
+                    console.log("mehhhh")
+                }
+            })
             break;    
     }
 }).catch(err => {
