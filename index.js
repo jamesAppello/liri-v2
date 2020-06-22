@@ -1,5 +1,5 @@
-const inquirer = require('inquirer');
-//import classes
+const inquirer = require('inquirer'), 
+    efEs = require('fs');
 
 
 inquirer.prompt({
@@ -8,8 +8,8 @@ inquirer.prompt({
     message: "What's up?",
     choices: [
         "Entertain me.",
-        "SkillStack.",
-        "Looking for work.",
+        "Aptitude_Select",
+        "CRUDabilities",
         "Trying to get some work done."
     ]
 }).then(res => {
@@ -78,11 +78,11 @@ inquirer.prompt({
                 }
             })
             break;
-        case 'SkillStack.':
+        case 'Aptitude_Select':
             console.log('LETS FIND OUT HOW GREAT YOU ARE!'); 
             inquirer.prompt({
                 name: 'skillstack',
-                message: "What here grabs your interest?\nYou can pick more than one!",
+                message: "What here grabs your interest?",
                 type: 'checkbox',
                 choices: [
                     "Science",
@@ -90,20 +90,46 @@ inquirer.prompt({
                     "Engineering",
                     "Medical",
                     "Hospitality",
-                    "Business",
-                    "etc/misc/other"
+                    "Business"
                 ]
             }).then(ssr => {
                 const sp = ssr.skillstack;
-                if (sp.length == 7) { console.log("----------------------\nWE GOT A SUPERSTAR OVER HERE!\n----------------------"); };
-                // console.log(sp);
-
-                
-            })
+                if (sp.length == 6) { console.log("----------------------\nWE GOT A SUPERSTAR OVER HERE!\n----------------------"); };
+            }).catch(err => {
+                if (err) throw err;
+            });
             break;
-        case 'Looking for work.':
-            console.log('Great! How many applocations went out today?'); 
-            // HAVE PROMPT FOR USER TO RETURN AN INTEGER for n-amount of job applications sent
+        case 'CRUDabilities': 
+            // import 'fs' module
+            inquirer.prompt({
+                name: "crud",
+                type: 'list',
+                message: "What would you like to do?",
+                choices: [
+                    "CREATE_FILE",
+                    "READ_FILE",
+                    "UPDATE_FILE",
+                    "DELETE_FILE"
+                ]
+            }).then(selected => {
+                let feat = selected.crud;
+                switch(feat) {
+                    case "CREATE_FILE":
+                        console.log('create');
+                        break;
+                    case "READ_FILE":
+                        console.log('read');
+                        break;
+                    case "UPDATE_FILE":
+                        console.log('update');
+                        break;
+                    case "DELETE_FILE":
+                        console.log('delete');
+                        break;            
+                }
+            }).catch(err => {
+                if (err) throw err;
+            });
             break;        
         case 'Trying to get some work done.':
             console.log('It is better to come to ammends by working through the problem instead of ignoring it.'); 
