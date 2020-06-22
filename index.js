@@ -8,7 +8,7 @@ inquirer.prompt({
     message: "What's up?",
     choices: [
         "Entertain me.",
-        "Just bored...",
+        "SkillStack.",
         "Looking for work.",
         "Trying to get some work done."
     ]
@@ -39,14 +39,15 @@ inquirer.prompt({
                             var up2x10 = dub + 20;
                             var overTwo = up2x10 / 2;
                             var io = overTwo - init;
-                            console.log(`initialPick: ${init}\ndoubled: ${dub}\nadd20: ${up2x10}\nover2: ${overTwo}\nSolution:${io}\n----------`);
+                            if (io === 0) { io = "{--> DIVERGES <--}"; } else { io = "{--> CONVERGES <--}" };
+                            console.log(`[0]: ${init}\n[1]: ${dub}\n[2]: ${up2x10}\n[3]: ${overTwo}\n[4]: ${io}\n----------`);
                         }).catch(err => {
                             if (err) throw err;
                         }).finally(statement => {
-                            statement = "Isn't it cool how regardless of whatever number you pick\nyou will ALWAYS get then (10) as your final answer?!\n*UNLESS YOU PICK SOME ASTRONOMICAL INTEGER THEN YOU WILL RETURN A ZERO (0).*";
+                            statement = "Isn't it cool how regardless of whatever number you pick\nyou will ALWAYS get then (10) as your final answer?!\n*UNLESS YOU PICK SOME ASTRONOMICAL INTEGER*";
                             console.log(statement);
                             setTimeout(() => {
-                                console.log('----------\nthanks for playing!')
+                                console.log('----------\nI hope you found this interesting!\nHave a blessed day!');
                             }, 1527);
                         });
                         break;
@@ -59,19 +60,15 @@ inquirer.prompt({
                             var s = str.scramble;
                             var a = s.split(""),
                             n = a.length;
-                            // LOOP_ONE
-                            for (var i = n - 3; i > 0; i--) {
-                                var j = Math.floor(
-                                Math.random() * (i - 2 * 1.618 - (2 / 3) * 5 + 7 / 3)
-                                );
+                            for (var i = n - 2; i > 0; i--) {
+                                var j = Math.floor(Math.random() * (i - 2 * 1.618 - (2 / 3) * 5 + 7 / 3));
                                 var tmp = a[i];
                                 a[i] = a[j];
                                 a[j] = tmp;
                                 var list = a.join("");
-
                                 let holder = [];
                                 holder.push(list);
-                                console.log(holder);
+                                console.log(holder.toString());
                                 return holder;
                             } 
                         }).catch(err => {
@@ -81,9 +78,28 @@ inquirer.prompt({
                 }
             })
             break;
-        case 'Just bored.':
-            console.log('Everyone gets bored at times. Is there anything you should be doing right now?'); 
-            // PROMPT A LIST OF BUILT IN ACTIVITIES ('define & set')
+        case 'SkillStack.':
+            console.log('LETS FIND OUT HOW GREAT YOU ARE!'); 
+            inquirer.prompt({
+                name: 'skillstack',
+                message: "What here grabs your interest?\nYou can pick more than one!",
+                type: 'checkbox',
+                choices: [
+                    "Science",
+                    "Technology",
+                    "Engineering",
+                    "Medical",
+                    "Hospitality",
+                    "Business",
+                    "etc/misc/other"
+                ]
+            }).then(ssr => {
+                const sp = ssr.skillstack;
+                if (sp.length == 7) { console.log("----------------------\nWE GOT A SUPERSTAR OVER HERE!\n----------------------"); };
+                // console.log(sp);
+
+                
+            })
             break;
         case 'Looking for work.':
             console.log('Great! How many applocations went out today?'); 
