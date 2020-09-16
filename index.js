@@ -8,7 +8,6 @@ inquirer.prompt({
     message: "What's up?",
     choices: [
         "Entertain me.",
-        "Aptitude_Select",
         "CRUDabilities",
         "MOOD_SCALE"
     ]
@@ -23,7 +22,8 @@ inquirer.prompt({
                 message: "I will have more games soon, but see how you like these first.",
                 choices: [
                     "STKz_753",
-                    "uScrmbl_r"
+                    "uScrmbl_r",
+                    "hshr1"
                 ]
             }).then(g => {
                 var uselected = g.games;
@@ -34,11 +34,11 @@ inquirer.prompt({
                             message: "pick a number",
                             type: 'input'
                         }).then(i => {
-                            var init = i.sticks;
-                            var dub = init * 2;
-                            var up2x10 = dub + 20;
-                            var overTwo = up2x10 / 2;
-                            var io = overTwo - init;
+                            const init = i.sticks;
+                            const dub = init * 2;
+                            const up2x10 = dub + 20;
+                            const overTwo = up2x10 / 2;
+                            const io = overTwo - init;
                             if (io === 0) { io = "{--> DIVERGES <--}"; } else { io = "{--> CONVERGES <--}" };
                             console.log(`[0]: ${init}\n[1]: ${dub}\n[2]: ${up2x10}\n[3]: ${overTwo}\n[4]: ${io}\n----------`);
                         }).catch(err => {
@@ -54,18 +54,18 @@ inquirer.prompt({
                     case 'uScrmbl_r':
                         inquirer.prompt({
                             name: 'scramble',
-                            message: "Let's scramble your name so it kind of looks like the name but its not ;)\nEnter your name/sudoname/alias/nickname/etc (have fun).",
+                            message: "Scramble a character string of your choice.\nEnter your name/sudoname/alias/nickname/etc (have fun).",
                             type: 'input'
                         }).then(str => {
-                            var s = str.scramble;
-                            var a = s.split(""),
+                            const s = str.scramble;
+                            const a = s.split(""),
                             n = a.length;
-                            for (var i = n - 2; i > 0; i--) {
-                                var j = Math.floor(Math.random() * (i - 2 * 1.618 - (2 / 3) * 5 + 7 / 3));
-                                var tmp = a[i];
+                            for (let i = n - 2; i > 0; i--) {
+                                let j = Math.floor(Math.random() * ((i+(10e10*(2/3)-1)) - (Math.PI*0.618)));
+                                let tmp = a[i];
                                 a[i] = a[j];
                                 a[j] = tmp;
-                                var list = a.join("");
+                                let list = a.join("");
                                 let holder = [];
                                 holder.push(list);
                                 console.log(holder.toString());
@@ -74,31 +74,11 @@ inquirer.prompt({
                         }).catch(err => {
                             if (err) throw err;
                         });
-                        break;    
+                        break; 
                 }
-            })
-            break;
-        case 'Aptitude_Select':
-            console.log('LETS FIND OUT HOW GREAT YOU ARE!'); 
-            inquirer.prompt({
-                name: 'skillstack',
-                message: "What here grabs your interest?",
-                type: 'checkbox',
-                choices: [
-                    "Science",
-                    "Technology",
-                    "Engineering",
-                    "Medical",
-                    "Hospitality",
-                    "Business"
-                ]
-            }).then(ssr => {
-                const sp = ssr.skillstack;
-                if (sp.length == 6) { console.log("----------------------\nWE GOT A SUPERSTAR OVER HERE!\n----------------------"); };
-            }).catch(err => {
-                if (err) throw err;
             });
             break;
+        
         case 'CRUDabilities': 
             // import 'fs' module
             inquirer.prompt({
