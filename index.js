@@ -22,8 +22,7 @@ inquirer.prompt({
                 message: "I will have more games soon, but see how you like these first.",
                 choices: [
                     "STKz_753",
-                    "uScrmbl_r",
-                    "hshr1"
+                    "uScrmbl_r"
                 ]
             }).then(g => {
                 var uselected = g.games;
